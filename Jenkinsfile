@@ -1,5 +1,6 @@
 
 pipeline {
+    agent any
     parameters{
         choice(
             choices: 'create\nupdate\nrollback',
