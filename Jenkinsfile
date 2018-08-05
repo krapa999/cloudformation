@@ -1,5 +1,5 @@
 
-node(){
+pipeline {
     parameters{
         choice(
             choices: 'create\nupdate\nrollback',
