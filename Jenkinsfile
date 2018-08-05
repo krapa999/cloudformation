@@ -8,7 +8,9 @@ pipeline {
     }
     stages {
         stage ('checkout'){
-            git branch: '$BRANCH_NAME', changelog: false, credentialsId: '9440d5c3-c608-4ef7-9686-1b9b9d650495', poll: false, url: 'https://github.com/krapa999/cloudformation.git' 
+            steps {
+                git branch: '$BRANCH_NAME', changelog: false, credentialsId: '9440d5c3-c608-4ef7-9686-1b9b9d650495', poll: false, url: 'https://github.com/krapa999/cloudformation.git' 
+            }    
         }
     /*
     stage ('Configure AWS'){
@@ -26,11 +28,11 @@ pipeline {
         }
 
     }*/
-        stage ('Validate template')
+        /*stage ('Validate template')
         {
             sh 'aws cloudformation validate-template --template-body file://sample-cfn.yml'
         }
-    
+  */  
    /*sh "echo ${ACTION}"    
    stage ('Stack Action')
    {
