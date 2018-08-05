@@ -6,9 +6,10 @@ pipeline {
             description: '',
             name: 'ACTION')
     }
-    stage ('checkout'){
-        git branch: '$BRANCH_NAME', changelog: false, credentialsId: '9440d5c3-c608-4ef7-9686-1b9b9d650495', poll: false, url: 'https://github.com/krapa999/cloudformation.git' 
-    }
+    stages {
+        stage ('checkout'){
+            git branch: '$BRANCH_NAME', changelog: false, credentialsId: '9440d5c3-c608-4ef7-9686-1b9b9d650495', poll: false, url: 'https://github.com/krapa999/cloudformation.git' 
+        }
     /*
     stage ('Configure AWS'){
         sh 'sudo yum install python-pip -y'
@@ -25,10 +26,10 @@ pipeline {
         }
 
     }*/
-    stage ('Validate template')
-    {
-        sh 'aws cloudformation validate-template --template-body file://sample-cfn.yml'
-    }
+        stage ('Validate template')
+        {
+            sh 'aws cloudformation validate-template --template-body file://sample-cfn.yml'
+        }
     
    /*sh "echo ${ACTION}"    
    stage ('Stack Action')
@@ -49,25 +50,25 @@ pipeline {
        }
     }
     */
-    stage ('Create') {
-            when {
-                // Only say hello if a "greeting" is requested
-                expression { params.ACTION == 'create' }
-            }
-            steps {
-                echo "Hello, bitwiseman!"
-            }
+        stage ('Create') {
+                when {
+                    // Only say hello if a "greeting" is requested
+                    expression { params.ACTION == 'create' }
+                }
+                steps {
+                    echo "Hello, bitwiseman!"
+                }
+        }
+        stage ('Stack') {
+                when {
+                    // Only say hello if a "greeting" is requested
+                    expression { params.ACTION == 'update' }
+                }
+                steps {
+                    echo "Hello, Update"
+                }
+        }
     }
-    stage ('Stack') {
-            when {
-                // Only say hello if a "greeting" is requested
-                expression { params.ACTION == 'update' }
-            }
-            steps {
-                echo "Hello, Update"
-            }
-    }
-    
 
 
     
